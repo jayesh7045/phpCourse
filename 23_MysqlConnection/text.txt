@@ -1,0 +1,14 @@
+
+welcome to the stage for connecting to database
+Ways to connect to MySql DB in php
+1) MySqLi -> procedural and object oriented
+--> In MySqli we can have 2 methods by which we can use it. procedural and object oriented way.
+--> In procedural we make use of functions
+--> in object oriented we make use of classes and objects
+
+2) PDO
+
+
+### When to make the use of PDO and when to make the use of MySqli ?
+--> PDO is used when we want to connect to multiple databases(when there are multiple dbs in our applications and we are switching between multiple dbs in our project)
+--> MySqli is used when we want to connect to single database

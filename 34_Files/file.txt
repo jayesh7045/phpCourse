@@ -1,0 +1,3 @@
+Hello this is the file1 and I want to read it.
+File operations
+are necessary in programming.
