@@ -22,21 +22,20 @@
             <?php
             $count = 0;
             while ($row = mysqli_fetch_assoc($result)) {
-
                 echo '
                     <div class="col-md-4 mb-4">
                         <div >
-                        <div class="card" style="height: 550px; width:350px;">
+                        <div class="card" style="height: 630px; width:350px;">
                             <div class="d-flex justify-content-center" style = "height:300px">
                             <img 
                                 src=' . $row['image'] . ' class = "container mt-5 justify-content-center"
-                                style = "height: 200px; width : 200px"  alt="...">
+                                style = "height: 250px; width : 250px"  alt="...">
                             </div>
                             <div class="mt-5">
                             <div class="card-body">
-                                <h5 class="card-title">' . $row['category_name'] . '</h5>
+                            <a href="/cwh/48_Forumsphp/threads.php?id=' . $row['category_id'] . '"><h5 class="card-title">' . $row['category_name'] . '</h5></a>
                                 <p class="card-text">' . $row['category_description'] . '.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <a href="/cwh/48_Forumsphp/threads.php?id=' . $row['category_id'] . '" class="btn btn-primary">Go somewhere</a>
                             </div></div>
                         </div></div>
                     </div>
@@ -47,7 +46,9 @@
         </div>
     </div>
 
-    <?php require "Partials/_Footer.php"; ?>
+    <div class = "align-self-end">
+        <?php require "Partials/_Footer.php"; ?>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
