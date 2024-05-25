@@ -76,10 +76,8 @@
 </body>
 
 </html>
-
-<!-- Button trigger modal -->
 <?php
-require "Partials/_dbconnect.php";
+require "_dbconnect.php";
 require "_login.php";
 require "_signup.php";
 ?>

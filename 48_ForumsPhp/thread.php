@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -15,7 +16,7 @@
 
 <body>
     <?php
-    ob_start();
+   
     require "Partials/_nav.php";
     $id = $_GET['id'];
     $titlesql = "select * from forums where category_id = " . $id . "";

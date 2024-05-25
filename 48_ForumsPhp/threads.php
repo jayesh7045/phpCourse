@@ -1,10 +1,19 @@
 <?php
 require "Partials/_nav.php";
 
-$id = $_GET['id'];
+// Ensure 'id' is set and sanitize it
+if (isset($_GET['id'])) {
+    $id = intval($_GET['id']);
+} else {
+    die("Error: 'id' parameter is missing.");
+}
+
 // Database query to fetch forum details
 $titlesql = "SELECT * FROM forums WHERE category_id = $id";
 $titleresult = mysqli_query($conn, $titlesql);
+if (!$titleresult) {
+    die("Error executing query: " . mysqli_error($conn));
+}
 $fetchData = mysqli_fetch_assoc($titleresult);
 $title = $fetchData["category_name"];
 $description = $fetchData['category_description'];
@@ -12,22 +21,25 @@ $description = $fetchData['category_description'];
 // Database query to fetch threads
 $fetchThreadSql = "SELECT * FROM threads WHERE concept_id = $id";
 $ThreadsResult = mysqli_query($conn, $fetchThreadSql);
+if (!$ThreadsResult) {
+    die("Error executing query: " . mysqli_error($conn));
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['title']) && isset($_POST['desc'])) {
-        $title_ = $_POST['title'];
-        $desc_ = $_POST['desc'];
+        $title_ = mysqli_real_escape_string($conn, $_POST['title']);
+        $desc_ = mysqli_real_escape_string($conn, $_POST['desc']);
         $sql = "INSERT INTO threads(concept_id, thread_title, thread_desc) VALUES($id, '$title_', '$desc_')";
         $result = mysqli_query($conn, $sql);
         if ($result) {
-            
-            echo "<script>alert('Thread added successfully!')</script>";
+            echo "<script>alert('Thread added successfully!');</script>";
             echo "<script>window.location.href = 'threads.php?id=$id';</script>";
             exit();
+        } else {
+            die("Error executing query: " . mysqli_error($conn));
         }
     }
 }
-ob_end_flush();
 ?>
 
 <!doctype html>
@@ -48,17 +60,17 @@ ob_end_flush();
 
     <div class="container mt-5 pl-5 pr-5">
         <div class="jumbotron">
-            <h1 class="display-4"><?= $title ?></h1>
-            <p class="lead">Description: <?= $description ?></p>
+            <h1 class="display-4"><?= htmlspecialchars($title) ?></h1>
+            <p class="lead">Description: <?= htmlspecialchars($description) ?></p>
             <hr class="my-4">
-            <p>Getting Started with <?= $title ?>: Best resources and tips for beginners.</p>
+            <p>Getting Started with <?= htmlspecialchars($title) ?>: Best resources and tips for beginners.</p>
             <p class="lead">
                 <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
             </p>
         </div>
 
         <div class="my-5">
-            <form action="<?php $_SERVER['REQUEST_URI']?>" method=" POST">
+            <form action="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>" method="POST">
                 <div>
                     <h3>Be the first to Start the Discussion</h3>
                 </div>
@@ -94,14 +106,18 @@ ob_end_flush();
             } else {
                 while ($dataFetched = mysqli_fetch_assoc($ThreadsResult)) {
                     echo '
-                    <div class="media mt-5">
-                        <img class="mr-3" style="width: 40px;" src="https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png" alt="Generic placeholder image">
-                        <div class="media-body">
-                            <h5 class="mt-0">' . $dataFetched['thread_title'] . '</h5>
-                            ' . $dataFetched['thread_desc'] . '
-                        </div>
-                    </div>';
-                }
+                    <a href="http://localhost/cwh/48_Forumsphp/comments.php?id='.htmlspecialchars($dataFetched['thread_id']).'">
+            <div class="media mt-5">
+                <img class="mr-3" style="width: 40px;"
+                    src="https://e7.pngegg.com/pngimages/753/432/png-clipart-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-thumbnail.png"
+                    alt="Generic placeholder image">
+                <div class="media-body">
+                    <h5 class="mt-0">' . htmlspecialchars($dataFetched['thread_title']) . '</h5>
+                    ' . htmlspecialchars($dataFetched['thread_desc']) . '
+                </div>
+            </div>
+            </a>';
+            }
             }
             ?>
         </div>

@@ -1,28 +1,23 @@
-
 <?php
-
-    if($_SERVER['REQUEST_METHOD'] == 'POST')
-    {
-        if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['pan']))
-        {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            $sql = "select * from fsign where username = '$username' and password = '$password'";
-            $result = mysqli_query($conn, $sql);
-            if($result)
-            {
-                echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>';
-            }
-            unset($password);
-            unset($username);
-           
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['pan'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $sql = "select * from fsign where username = '$username' and password = '$password'";
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) == 1) {
+            
+            echo '<script>window.location.href = "index.php?login=true"</script>';
+        } else {
+            
+              echo '<script>window.location.href = "index.php?login=false"</script>';
         }
-    }
-?>
+        unset($password);
+        unset($username);
 
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -46,7 +41,7 @@
                 <div class="modal-body">
                     <div>
                         <form action="index.php" method="POST">
-                        <input type="password" hidden = "true" class="form-control" name = "pan" id="password">
+                            <input type="password" hidden="true" class="form-control" name="pan" id="password">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="username" name="username"
@@ -54,7 +49,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" name = "password" id="password">
+                                <input type="password" class="form-control" name="password" id="password">
                             </div>
 
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -70,14 +65,17 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    < /script> <
+    script src = "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity = "sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin = "anonymous" >
+        <
+        />  <
+        script src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity = "sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin = "anonymous" >
+    </script>
 </body>
 
 </html>

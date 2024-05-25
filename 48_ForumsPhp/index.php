@@ -11,8 +11,40 @@
 
 <body>
     <?php
-    ob_start();
+
     require "Partials/_nav.php";
+    if (isset($_GET['success']) and $_GET['success'] == 'true') {
+        echo '
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Registration Successful !</strong> You should check in on some of those fields below.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+    }
+    else if(isset($_GET['success'])){ 
+        echo '
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Registration Failed !</strong> You should check in on some of those fields below.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>';
+    }
+    if(isset($_GET['login']) and $_GET['login'] == 'true')
+    {
+       
+        echo '
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Login Successful !</strong> You should check in on some of those fields below.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+    }
+    else if(isset($_GET['login']))
+    {
+      
+        echo '
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Login Failed !</strong> You should check in on some of those fields below.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+    }
     $sql = "SELECT * FROM forums";
     $result = mysqli_query($conn, $sql);
 
@@ -46,20 +78,16 @@
             ?>
         </div>
     </div>
-
-    <div class="align-self-end">
-        <?php require "Partials/_Footer.php"; ?>
-    </div>
-
+    <?php require "Partials/_Footer.php"; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-    </script>
+        </script>
 </body>
 
 </html>
